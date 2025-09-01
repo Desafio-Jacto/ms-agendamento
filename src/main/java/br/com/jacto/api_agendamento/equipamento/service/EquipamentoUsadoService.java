@@ -1,7 +1,7 @@
 package br.com.jacto.api_agendamento.equipamento.service;
 
 import br.com.jacto.api_agendamento.agendamento.model.Agendamento;
-import br.com.jacto.api_agendamento.equipamento.dto.request.EquipamentoUsadoRequestDTO;
+import br.com.jacto.api_agendamento.equipamento.dto.request.EquipamentoUsadoRequestDto;
 import br.com.jacto.api_agendamento.equipamento.model.EquipamentoUsado;
 import br.com.jacto.api_agendamento.equipamento.repository.IEquipamentoUsadoRepository;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class EquipamentoUsadoService {
         this.equipamentoUsadoRepository = equipamentoUsadoRepository;
     }
 
-    public void salvarEquipamentoUsado(Agendamento agendamento, EquipamentoUsadoRequestDTO equipamentoDto) {
+    public void salvarEquipamentoUsado(Agendamento agendamento, EquipamentoUsadoRequestDto equipamentoDto) {
         EquipamentoUsado equipamentoUsado = new EquipamentoUsado();
         equipamentoUsado.setAgendamento(agendamento);
         equipamentoUsado.setIdEquipamento(equipamentoDto.getIdEquipamento());

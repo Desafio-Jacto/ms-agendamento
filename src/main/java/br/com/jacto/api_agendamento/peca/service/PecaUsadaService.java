@@ -2,7 +2,7 @@ package br.com.jacto.api_agendamento.peca.service;
 
 import br.com.jacto.api_agendamento.agendamento.model.Agendamento;
 import br.com.jacto.api_agendamento.infra.exceptions.RegraNegocioException;
-import br.com.jacto.api_agendamento.peca.dto.request.PecaUsadaRequestDTO;
+import br.com.jacto.api_agendamento.peca.dto.request.PecaUsadaRequestDto;
 import br.com.jacto.api_agendamento.peca.model.PecaUsada;
 import br.com.jacto.api_agendamento.peca.repository.IPecaUsadaRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +27,7 @@ public class PecaUsadaService {
         this.restTemplate = restTemplate;
     }
 
-    public void salvarPecaUsada(Agendamento agendamento, PecaUsadaRequestDTO pecaUsadaDTO) {
+    public void salvarPecaUsada(Agendamento agendamento, PecaUsadaRequestDto pecaUsadaDTO) {
         PecaUsada pecaUsada = new PecaUsada();
         pecaUsada.setAgendamento(agendamento);
         pecaUsada.setIdPeca(pecaUsadaDTO.getIdPeca());
@@ -35,7 +35,7 @@ public class PecaUsadaService {
         pecaUsadaRepository.save(pecaUsada);
     }
 
-    public void verificarQuantidadePeca(PecaUsadaRequestDTO pecaUsadaDTO) {
+    public void verificarQuantidadePeca(PecaUsadaRequestDto pecaUsadaDTO) {
         String url = "http://localhost:8090/peca/quantidade/" + pecaUsadaDTO.getIdPeca();
 
         HttpHeaders headers = new HttpHeaders();

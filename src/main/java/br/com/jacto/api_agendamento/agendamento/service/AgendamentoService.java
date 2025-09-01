@@ -8,14 +8,12 @@ import br.com.jacto.api_agendamento.agendamento.mapper.AgendamentoMapper;
 import br.com.jacto.api_agendamento.agendamento.model.Agendamento;
 import br.com.jacto.api_agendamento.agendamento.repository.IAgendamentoRepository;
 import br.com.jacto.api_agendamento.avaliacao.repository.IAvaliacaoRepository;
-import br.com.jacto.api_agendamento.equipamento.dto.request.EquipamentoUsadoRequestDTO;
-import br.com.jacto.api_agendamento.equipamento.model.EquipamentoUsado;
+import br.com.jacto.api_agendamento.equipamento.dto.request.EquipamentoUsadoRequestDto;
 import br.com.jacto.api_agendamento.equipamento.service.EquipamentoUsadoService;
 import br.com.jacto.api_agendamento.infra.exceptions.RegraNegocioException;
 import br.com.jacto.api_agendamento.infra.rabbitmq.RabbitConfig;
 import br.com.jacto.api_agendamento.infra.security.SecurityUtils;
-import br.com.jacto.api_agendamento.peca.dto.request.PecaUsadaRequestDTO;
-import br.com.jacto.api_agendamento.peca.model.PecaUsada;
+import br.com.jacto.api_agendamento.peca.dto.request.PecaUsadaRequestDto;
 import br.com.jacto.api_agendamento.peca.service.PecaUsadaService;
 import jakarta.transaction.Transactional;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -23,7 +21,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AgendamentoService {
@@ -65,7 +62,7 @@ public class AgendamentoService {
         }
 
         if (dto.getPecasUsadas() != null) {
-            for (PecaUsadaRequestDTO pecaDto : dto.getPecasUsadas()) {
+            for (PecaUsadaRequestDto pecaDto : dto.getPecasUsadas()) {
                 pecaUsadaService.verificarQuantidadePeca(pecaDto);
             }
         }
@@ -75,13 +72,13 @@ public class AgendamentoService {
         Agendamento agendamentoSalvo = agendamentoRepository.save(agendamento);
 
         if (dto.getEquipamentosUsados() != null) {
-            for (EquipamentoUsadoRequestDTO equipamentoDto : dto.getEquipamentosUsados()) {
+            for (EquipamentoUsadoRequestDto equipamentoDto : dto.getEquipamentosUsados()) {
                 equipamentoUsadoService.salvarEquipamentoUsado(agendamentoSalvo, equipamentoDto);
             }
         }
 
         if (dto.getPecasUsadas() != null) {
-            for (PecaUsadaRequestDTO pecaDto : dto.getPecasUsadas()) {
+            for (PecaUsadaRequestDto pecaDto : dto.getPecasUsadas()) {
                 pecaUsadaService.salvarPecaUsada(agendamentoSalvo, pecaDto);
             }
         }
