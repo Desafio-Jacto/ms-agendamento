@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  api-agendamento:
+    build: .
+    container_name: jacto-ms-agendamento
+    ports:
+      - "8090:8090"
+    depends_on:
+      - db
+      - rabbitmq
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/ms-agendamento
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: senha123
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: user
+      SPRING_RABBITMQ_PASSWORD: senha123
+      JWT_SECRET: 12345678
+      API_KEY: seu-segredo-super-secreto-para-o-estoque
+      SPRING_JACKSON_TIME_ZONE: America/Sao_Paulo
+      SERVER_ADDRESS: 0.0.0.0
+
+  db:
+    image: postgres:15
+    container_name: jacto-postgres-agendamento
+    environment:
+      POSTGRES_DB: ms-agendamento
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: senha123
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres-data-agendamento:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: jacto-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: senha123
+    volumes:
+      - rabbitmq-data-agendamento:/var/lib/rabbitmq
+
+volumes:
+  postgres-data-agendamento:
+  rabbitmq-data-agendamento:

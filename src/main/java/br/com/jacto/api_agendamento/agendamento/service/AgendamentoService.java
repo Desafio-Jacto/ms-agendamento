@@ -16,11 +16,16 @@ import br.com.jacto.api_agendamento.infra.security.SecurityUtils;
 import br.com.jacto.api_agendamento.peca.dto.request.PecaUsadaRequestDto;
 import br.com.jacto.api_agendamento.peca.service.PecaUsadaService;
 import jakarta.transaction.Transactional;
+import net.sf.jasperreports.engine.*;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class AgendamentoService {
@@ -134,5 +139,40 @@ public class AgendamentoService {
                 agendamentosConcluidos,
                 totalAvaliados
         );
+    }
+
+    public byte[] gerarRelatorio(Integer id) throws Exception {
+        AgendamentoResponseDto agendamento = buscarPorId(id);
+
+        if (agendamento == null) {
+            return null;
+        }
+
+        String equipamentos = agendamento.getEquipamentosUsados().stream()
+                .map(e -> "ID: " + e.getIdEquipamento() + " Quantidade: " + e.getQuantidade())
+                .collect(Collectors.joining(", "));
+
+        String pecas = agendamento.getPecasUsadas().stream()
+                .map(p -> "ID: " + p.getIdPeca() + " Quantidade: " + p.getQuantidadeUsada())
+                .collect(Collectors.joining(", "));
+
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("idAgendamento", agendamento.getIdAgendamento());
+        parametros.put("dataAgendamento", agendamento.getDataAgendamento());
+        parametros.put("tipoAgendamento", agendamento.getTipoAgendamento());
+        parametros.put("observacoes", agendamento.getObservacoes());
+        parametros.put("prioridade", agendamento.getPrioridade().name());
+        parametros.put("agendamentoFinalizado", agendamento.getAgendamentoFinalizado());
+        parametros.put("avaliacaoCliente", agendamento.getAvaliacaoCliente());
+        parametros.put("idUsuario", agendamento.getIdUsuario());
+        parametros.put("idFazenda", agendamento.getIdFazenda());
+        parametros.put("equipamentosUsados", equipamentos);
+        parametros.put("pecasUsadas", pecas);
+
+        InputStream reportStream = getClass().getResourceAsStream("/reports/agendamento.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JREmptyDataSource());
+
+        return JasperExportManager.exportReportToPdf(jasperPrint);
     }
 }

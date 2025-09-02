@@ -8,7 +8,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.ResponseEntity;
+import net.sf.jasperreports.engine.*;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -94,4 +95,29 @@ public class AgendamentoController {
     public ResponseEntity<TecnicoMetricasDto> listarMetricasPeloIdUsuario(@PathVariable Integer idUsuario) {
         return ResponseEntity.ok(service.obterMetricasUsuario(idUsuario));
     }
+
+    @Operation(summary = "Gera um relatório PDF", description = "Gera e retorna um relatório em formato PDF para um agendamento específico.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Relatório gerado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Agendamento não encontrado")
+    })
+    @GetMapping("/{id}/relatorio")
+    public ResponseEntity<byte[]> gerarRelatorio(@PathVariable Integer id) throws Exception {
+        byte[] pdf = service.gerarRelatorio(id);
+
+        if (pdf == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition.builder("inline")
+                .filename("agendamento_" + id + ".pdf")
+                .build());
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(pdf);
+    }
+
 }

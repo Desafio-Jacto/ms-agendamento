@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+                                  http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="AgendamentoReport"
+              pageWidth="595" pageHeight="842"
+              columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
+              uuid="12345678-1234-1234-1234-123456789012">
+
+    <parameter name="idAgendamento" class="java.lang.Integer"/>
+    <parameter name="dataAgendamento" class="java.time.LocalDateTime"/>
+    <parameter name="tipoAgendamento" class="java.lang.String"/>
+    <parameter name="observacoes" class="java.lang.String"/>
+    <parameter name="prioridade" class="java.lang.String"/>
+    <parameter name="agendamentoFinalizado" class="java.lang.Boolean"/>
+    <parameter name="avaliacaoCliente" class="java.lang.String"/>
+    <parameter name="idUsuario" class="java.lang.Integer"/>
+    <parameter name="idFazenda" class="java.lang.Integer"/>
+    <parameter name="equipamentosUsados" class="java.lang.String"/>
+    <parameter name="pecasUsadas" class="java.lang.String"/>
+
+    <title>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="30"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Relatório de Agendamento]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <detail>
+        <band height="250">
+            <textField>
+                <reportElement x="0" y="0" width="200" height="20"/>
+                <textFieldExpression><![CDATA["ID Agendamento: " + $P{idAgendamento}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="0" y="20" width="300" height="20"/>
+                <textFieldExpression><![CDATA[
+                    "Horário Agendamento: " +
+                    ($P{dataAgendamento} != null
+                        ? $P{dataAgendamento}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
+                        : "")
+                ]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="0" y="40" width="300" height="20"/>
+                <textFieldExpression><![CDATA["Tipo: " + $P{tipoAgendamento}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="0" y="60" width="300" height="20"/>
+                <textFieldExpression><![CDATA["Observações: " + $P{observacoes}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="0" y="100" width="300" height="20"/>
+                <textFieldExpression><![CDATA["Status: " + ($P{agendamentoFinalizado} ? "Atendimento finalizado" : "Atendimento não finalizado")]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="0" y="120" width="300" height="20"/>
+                <textFieldExpression><![CDATA["Avaliação: " + $P{avaliacaoCliente}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="0" y="150" width="555" height="20"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Equipamentos Usados:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="0" y="170" width="555" height="20"/>
+                <textFieldExpression><![CDATA[$P{equipamentosUsados}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="0" y="200" width="555" height="20"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Peças Usadas:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="0" y="220" width="555" height="20"/>
+                <textFieldExpression><![CDATA[$P{pecasUsadas}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

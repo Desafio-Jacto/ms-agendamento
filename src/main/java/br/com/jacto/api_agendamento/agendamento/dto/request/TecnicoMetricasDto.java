@@ -12,6 +12,9 @@ public class TecnicoMetricasDto {
         this.totalAvaliados = totalAvaliados;
     }
 
+    public TecnicoMetricasDto() {
+    }
+
     public Integer getTotalAgendamentos() {
         return totalAgendamentos;
     }
