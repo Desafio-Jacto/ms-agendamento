@@ -10,6 +10,7 @@ import br.com.jacto.api_agendamento.agendamento.repository.IAgendamentoRepositor
 import br.com.jacto.api_agendamento.avaliacao.repository.IAvaliacaoRepository;
 import br.com.jacto.api_agendamento.equipamento.dto.request.EquipamentoUsadoRequestDto;
 import br.com.jacto.api_agendamento.equipamento.service.EquipamentoUsadoService;
+import br.com.jacto.api_agendamento.infra.exceptions.AgendamentoNotFoundException;
 import br.com.jacto.api_agendamento.infra.exceptions.RegraNegocioException;
 import br.com.jacto.api_agendamento.infra.rabbitmq.RabbitConfig;
 import br.com.jacto.api_agendamento.infra.security.SecurityUtils;
@@ -145,16 +146,16 @@ public class AgendamentoService {
         AgendamentoResponseDto agendamento = buscarPorId(id);
 
         if (agendamento == null) {
-            return null;
+            throw new AgendamentoNotFoundException("Agendamento não encontrado para gerar relatorio.");
         }
 
         String equipamentos = agendamento.getEquipamentosUsados().stream()
-                .map(e -> "ID: " + e.getIdEquipamento() + " Quantidade: " + e.getQuantidade())
-                .collect(Collectors.joining(", "));
+                .map(e -> "ID: " + e.getIdEquipamento() + " | Nome do equipamento: " + e.getNomeEquipamento() + " | Quantidade: " + e.getQuantidade())
+                .collect(Collectors.joining("\n"));
 
         String pecas = agendamento.getPecasUsadas().stream()
-                .map(p -> "ID: " + p.getIdPeca() + " Quantidade: " + p.getQuantidadeUsada())
-                .collect(Collectors.joining(", "));
+                .map(p -> "ID: " + p.getIdPeca() + " | Nome da peça: " + p.getNomePeca() + " | Quantidade: " + p.getQuantidade())
+                .collect(Collectors.joining("\n"));
 
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("idAgendamento", agendamento.getIdAgendamento());

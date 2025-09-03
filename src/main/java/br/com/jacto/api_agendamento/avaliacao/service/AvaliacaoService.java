@@ -5,6 +5,7 @@ import br.com.jacto.api_agendamento.agendamento.repository.IAgendamentoRepositor
 import br.com.jacto.api_agendamento.avaliacao.dto.request.AvaliacaoRequestDto;
 import br.com.jacto.api_agendamento.avaliacao.model.Avaliacao;
 import br.com.jacto.api_agendamento.avaliacao.repository.IAvaliacaoRepository;
+import br.com.jacto.api_agendamento.infra.exceptions.AgendamentoNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +21,7 @@ public class AvaliacaoService {
 
     public void avaliarAgendamento(Integer idAgendamento, AvaliacaoRequestDto avaliacaoDto) {
         Agendamento agendamento = agendamentoRepository.findById(idAgendamento)
-                .orElseThrow(() -> new RuntimeException("Agendamento não encontrado."));
+                .orElseThrow(() -> new AgendamentoNotFoundException("Agendamento não encontrado."));
 
         Avaliacao novaAvaliacao = new Avaliacao();
         novaAvaliacao.setNotaAvaliacao(avaliacaoDto.getNotaAvaliacao());
@@ -33,7 +34,7 @@ public class AvaliacaoService {
 
     public void editarAvaliacao(Integer idAvaliacao, AvaliacaoRequestDto avaliacaoDto) {
         Avaliacao avaliacao = avaliacaoRepository.findById(idAvaliacao)
-                .orElseThrow(() -> new RuntimeException("Avaliação não encontrada."));
+                .orElseThrow(() -> new AgendamentoNotFoundException("Avaliação não encontrada."));
 
         avaliacao.setNotaAvaliacao(avaliacaoDto.getNotaAvaliacao());
         avaliacao.setComentario(avaliacaoDto.getComentario());

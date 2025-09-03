@@ -1,5 +1,6 @@
 package br.com.jacto.api_agendamento.infra.exception_handler;
 
+import br.com.jacto.api_agendamento.infra.exceptions.AgendamentoNotFoundException;
 import br.com.jacto.api_agendamento.infra.exceptions.RegraNegocioException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -24,5 +25,19 @@ public class GlobalExceptionHandler {
                 request.getRequestURI()
         );
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AgendamentoNotFoundException.class)
+    public ResponseEntity<MensagemErroResponse> handleAgendamentoNotFoundException(
+            RegraNegocioException ex,
+            HttpServletRequest request) {
+
+        MensagemErroResponse error = new MensagemErroResponse(
+                HttpStatus.NOT_FOUND,
+                ex.getMessage(),
+                LocalDateTime.now(),
+                request.getRequestURI()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 }
