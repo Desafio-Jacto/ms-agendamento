@@ -3,13 +3,15 @@ package br.com.jacto.api_agendamento.peca.dto.request;
 public class PecaUsadaRequestDto {
 
     private Integer idPeca;
-    private Integer quantidadeUsada;
+    private String nomePeca;
+    private Integer quantidade;
 
     public PecaUsadaRequestDto() {}
 
-    public PecaUsadaRequestDto(Integer idPeca, Integer quantidadeUsada) {
+    public PecaUsadaRequestDto(Integer idPeca, String nomePeca, Integer quantidade) {
         this.idPeca = idPeca;
-        this.quantidadeUsada = quantidadeUsada;
+        this.nomePeca = nomePeca;
+        this.quantidade = quantidade;
     }
 
     public Integer getIdPeca() {
@@ -20,11 +22,19 @@ public class PecaUsadaRequestDto {
         this.idPeca = idPeca;
     }
 
-    public Integer getQuantidade() {
-        return quantidadeUsada;
+    public String getNomePeca() {
+        return nomePeca;
     }
 
-    public void setQuantidade(Integer quantidadeUsada) {
-        this.quantidadeUsada = quantidadeUsada;
+    public void setNomePeca(String nomePeca) {
+        this.nomePeca = nomePeca;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
 }

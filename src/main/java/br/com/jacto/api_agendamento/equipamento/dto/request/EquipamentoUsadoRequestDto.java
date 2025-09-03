@@ -3,12 +3,14 @@ package br.com.jacto.api_agendamento.equipamento.dto.request;
 public class EquipamentoUsadoRequestDto {
 
     private Integer idEquipamento;
+    private String nomeEquipamento;
     private Integer quantidade;
 
     public EquipamentoUsadoRequestDto() {}
 
-    public EquipamentoUsadoRequestDto(Integer idEquipamento, Integer quantidade) {
+    public EquipamentoUsadoRequestDto(Integer idEquipamento, String nomeEquipamento, Integer quantidade) {
         this.idEquipamento = idEquipamento;
+        this.nomeEquipamento = nomeEquipamento;
         this.quantidade = quantidade;
     }
 
@@ -26,5 +28,13 @@ public class EquipamentoUsadoRequestDto {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public String getNomeEquipamento() {
+        return nomeEquipamento;
+    }
+
+    public void setNomeEquipamento(String nomeEquipamento) {
+        this.nomeEquipamento = nomeEquipamento;
     }
 }

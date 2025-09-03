@@ -19,10 +19,12 @@ public class PecaUsada {
     @Column(name = "id_peca", nullable = false)
     private Integer idPeca;
 
+    @Column(name = "nome_peca", nullable = false)
+    private String nomePeca;
+
     @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
 
-    // ================== equals & hashCode ==================
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,7 +37,6 @@ public class PecaUsada {
         return Objects.hash(id);
     }
 
-    // ================== Getters & Setters ==================
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public Agendamento getAgendamento() { return agendamento; }
@@ -44,4 +45,12 @@ public class PecaUsada {
     public void setIdPeca(Integer idPeca) { this.idPeca = idPeca; }
     public Integer getQuantidade() { return quantidade; }
     public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
+
+    public String getNomePeca() {
+        return nomePeca;
+    }
+
+    public void setNomePeca(String nomePeca) {
+        this.nomePeca = nomePeca;
+    }
 }

@@ -19,6 +19,7 @@ public class EquipamentoUsadoService {
         EquipamentoUsado equipamentoUsado = new EquipamentoUsado();
         equipamentoUsado.setAgendamento(agendamento);
         equipamentoUsado.setIdEquipamento(equipamentoDto.getIdEquipamento());
+        equipamentoUsado.setNomeEquipamento(equipamentoDto.getNomeEquipamento());
         equipamentoUsado.setQuantidade(equipamentoDto.getQuantidade());
         equipamentoUsadoRepository.save(equipamentoUsado);
     }

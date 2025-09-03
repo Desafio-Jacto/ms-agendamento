@@ -31,12 +31,13 @@ public class PecaUsadaService {
         PecaUsada pecaUsada = new PecaUsada();
         pecaUsada.setAgendamento(agendamento);
         pecaUsada.setIdPeca(pecaUsadaDTO.getIdPeca());
+        pecaUsada.setNomePeca(pecaUsadaDTO.getNomePeca());
         pecaUsada.setQuantidade(pecaUsadaDTO.getQuantidade());
         pecaUsadaRepository.save(pecaUsada);
     }
 
     public void verificarQuantidadePeca(PecaUsadaRequestDto pecaUsadaDTO) {
-        String url = "http://localhost:8090/peca/quantidade/" + pecaUsadaDTO.getIdPeca();
+        String url = "http://localhost:9090/peca/quantidade/" + pecaUsadaDTO.getIdPeca();
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Api-Key", apiKey);

@@ -19,6 +19,9 @@ public class EquipamentoUsado {
     @Column(name = "id_equipamento", nullable = false)
     private Integer idEquipamento;
 
+    @Column(name = "nome_equipamento", nullable = false)
+    private String nomeEquipamento;
+
     @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
 
@@ -42,4 +45,12 @@ public class EquipamentoUsado {
     public void setIdEquipamento(Integer idEquipamento) { this.idEquipamento = idEquipamento; }
     public Integer getQuantidade() { return quantidade; }
     public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
+
+    public String getNomeEquipamento() {
+        return nomeEquipamento;
+    }
+
+    public void setNomeEquipamento(String nomeEquipamento) {
+        this.nomeEquipamento = nomeEquipamento;
+    }
 }

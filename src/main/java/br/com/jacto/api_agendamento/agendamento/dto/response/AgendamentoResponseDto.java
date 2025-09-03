@@ -125,7 +125,14 @@ public class AgendamentoResponseDto {
 
     public static class PecaUsadaResponseDto {
         private Integer idPeca;
+        private String nomePeca;
         private Integer quantidade;
+
+        public PecaUsadaResponseDto(Integer idPeca, String nomePeca, Integer quantidade) {
+            this.idPeca = idPeca;
+            this.nomePeca = nomePeca;
+            this.quantidade = quantidade;
+        }
 
         public PecaUsadaResponseDto() {}
 
@@ -137,11 +144,20 @@ public class AgendamentoResponseDto {
             this.idPeca = idPeca;
         }
 
-        public Integer getQuantidadeUsada() {
+
+        public String getNomePeca() {
+            return nomePeca;
+        }
+
+        public void setNomePeca(String nomePeca) {
+            this.nomePeca = nomePeca;
+        }
+
+        public Integer getQuantidade() {
             return quantidade;
         }
 
-        public void setQuantidadeUsada(Integer quantidade) {
+        public void setQuantidade(Integer quantidade) {
             this.quantidade = quantidade;
         }
     }
@@ -149,6 +165,7 @@ public class AgendamentoResponseDto {
 
     public static class EquipamentoUsadoResponseDto {
         private Integer idEquipamento;
+        private String nomeEquipamento;
         private Integer quantidade;
 
         public EquipamentoUsadoResponseDto() {}
@@ -167,6 +184,14 @@ public class AgendamentoResponseDto {
 
         public void setQuantidade(Integer quantidade) {
             this.quantidade = quantidade;
+        }
+
+        public String getNomeEquipamento() {
+            return nomeEquipamento;
+        }
+
+        public void setNomeEquipamento(String nomeEquipamento) {
+            this.nomeEquipamento = nomeEquipamento;
         }
     }
 }

@@ -22,11 +22,12 @@ public interface AgendamentoMapper {
 
     @Named("mapPecaUsada")
     @Mapping(target = "idPeca", source = "idPeca")
-    @Mapping(target = "quantidadeUsada", source = "quantidade")
+    @Mapping(target = "quantidade", source = "quantidade")
     AgendamentoResponseDto.PecaUsadaResponseDto toDto(PecaUsada entity);
 
     @Named("mapEquipamentoUsado")
     @Mapping(target = "idEquipamento", source = "idEquipamento")
+    @Mapping(target = "nomeEquipamento", source = "nomeEquipamento")
     @Mapping(target = "quantidade", source = "quantidade")
     AgendamentoResponseDto.EquipamentoUsadoResponseDto toDto(EquipamentoUsado entity);
 
