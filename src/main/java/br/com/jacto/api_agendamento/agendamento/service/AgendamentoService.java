@@ -67,11 +67,11 @@ public class AgendamentoService {
             throw new RegraNegocioException("Não é possível agendar para datas anteriores");
         }
 
-        if (dto.getPecasUsadas() != null) {
-            for (PecaUsadaRequestDto pecaDto : dto.getPecasUsadas()) {
-                pecaUsadaService.verificarQuantidadePeca(pecaDto);
-            }
-        }
+//        if (dto.getPecasUsadas() != null) {
+//            for (PecaUsadaRequestDto pecaDto : dto.getPecasUsadas()) {
+//                pecaUsadaService.verificarQuantidadePeca(pecaDto);
+//            }
+//        }
 
         Agendamento agendamento = mapper.toEntity(dto);
 
@@ -89,7 +89,7 @@ public class AgendamentoService {
             }
         }
 
-        enviarNotificacao(agendamentoSalvo);
+//        enviarNotificacao(agendamentoSalvo);
 
         return mapper.toDto(agendamentoSalvo);
     }
